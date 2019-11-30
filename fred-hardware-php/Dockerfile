@@ -3,10 +3,14 @@ ARG PHP_VARIANT
 ARG ARCH
 
 FROM arm64v8/php:$PHP_VERSION-$PHP_VARIANT as aarch64
-FROM arm32v7/php:$PHP_VERSION-$PHP_VARIANT as armv7hf
-FROM php:$PHP_VERSION-$PHP_VARIANT as amd64
+FROM arm32v7/php:$PHP_VERSION-$PHP_VARIANT as arm
+FROM php:$PHP_VERSION-$PHP_VARIANT as x86_64
+
+FROM multiarch/qemu-user-static:${ARCH} as qemu
 
 FROM $ARCH
+
+COPY --from=qemu /usr/bin/qemu-${ARCH}-static /usr/bin
 
 RUN apt-get update && apt-get install -y \
     mplayer \

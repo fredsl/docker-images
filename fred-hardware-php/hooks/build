@@ -1,26 +1,22 @@
 #!/bin/bash
 
-ARCH=armv7hf
-
 docker build \
-     --build-arg ARCH=$ARCH \
+     --build-arg ARCH=arm \
      --build-arg PHP_VERSION=$PHP_VERSION \
      --build-arg PHP_VARIANT=$PHP_VARIANT \
-     -t $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-$ARCH .
-
-ARCH=aarch64
+     -t $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-armv7hf .
 
 docker build \
-     --build-arg ARCH=$ARCH \
+     --build-arg ARCH=aarch64 \
      --build-arg PHP_VERSION=$PHP_VERSION \
      --build-arg PHP_VARIANT=$PHP_VARIANT \
-     -t $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-$ARCH .
+     -t $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-aarch64 .
 
 ARCH=amd64
 
 docker build \
-     --build-arg ARCH=$ARCH \
+     --build-arg ARCH=x86_64 \
      --build-arg PHP_VERSION=$PHP_VERSION \
      --build-arg PHP_VARIANT=$PHP_VARIANT \
-     -t $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-$ARCH \
+     -t $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-amd64 \
      -t $DOCKER_REPO:$DOCKER_TAG .
