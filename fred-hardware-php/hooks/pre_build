@@ -8,7 +8,7 @@ apt-get update
 
 #dpkg -i docker-ce.deb
 
-apt-get install \
+apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -26,8 +26,7 @@ apt-get update
 
 apt-cache madison docker-ce
 
-apt-get install docker-ce docker-ce-cli containerd.io
-
+apt-get install -y docker-ce docker-ce-cli containerd.io
 
 docker -v
 export DOCKER_BUILDKIT=1
