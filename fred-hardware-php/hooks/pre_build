@@ -9,8 +9,11 @@ apt-get install -y --only-upgrade docker-ee
 #systemctl restart docker
 
 docker -v
+docker version
 
-docker engine update --version 19.03.5
+echo $DOCKER_EE_VERSION
+
+apt-cache madison docker-ee
 
 docker -v
 
@@ -19,11 +22,10 @@ export DOCKER_BUILDKIT=1
 
 docker buildx -v
 
-docker build --platform=local -o . git://github.com/docker/buildx
-mv buildx ~/.docker/cli-plugins/docker-buildx
+git clone git://github.com/docker/buildx && cd buildx
+make install
 
-docker buildx -v
-
+docker buildx help
 
 #apt-get remove -y docker docker-engine docker-ce docker-ce-cli docker.io docker-ee docker-ce
 
