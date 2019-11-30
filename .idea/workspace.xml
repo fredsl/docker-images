@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="157b2871-7891-4f72-b0f3-4fd719a3f36e" name="Default Changelist" comment="" />
+    <list default="true" id="157b2871-7891-4f72-b0f3-4fd719a3f36e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fred-hardware-php/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/fred-hardware-php/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fred-hardware-php/hooks/build" beforeDir="false" afterPath="$PROJECT_DIR$/fred-hardware-php/hooks/build" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +60,8 @@
       <workItem from="1574065303248" duration="1296000" />
       <workItem from="1574751401969" duration="82000" />
       <workItem from="1574751511612" duration="4876000" />
-      <workItem from="1574760905122" duration="8875000" />
+      <workItem from="1574760905122" duration="9162000" />
+      <workItem from="1575079807796" duration="112000" />
     </task>
     <servers />
   </component>

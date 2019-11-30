@@ -1,6 +1,5 @@
-ARG PHP_VERSION
-ARG PHP_VARIANT
-FROM php:$PHP_VERSION-$PHP_VARIANT
+ARG IMAGE
+FROM php:$IMAGE
 
 RUN apt-get update && apt-get install -y \
     mplayer \
