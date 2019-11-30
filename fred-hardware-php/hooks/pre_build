@@ -13,7 +13,7 @@ docker version
 #echo $DOCKER_EE_VERSION
 #apt-cache madison docker-ee
 
-export DOCKER_CLI_EXPERIMENTAL=enable
+export DOCKER_CLI_EXPERIMENTAL=enabled
 export DOCKER_BUILDKIT=1
 export DOCKER_API_VERSION='1.40'
 
