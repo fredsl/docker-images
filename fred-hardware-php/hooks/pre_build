@@ -31,8 +31,8 @@ apt-get install -y docker-ce docker-ce-cli containerd.io
 
 docker -v
 export DOCKER_BUILDKIT=1
-docker build --platform=local -o . git://github.com/docker/buildx
-mv buildx ~/.docker/cli-plugins/docker-buildx
+git clone git://github.com/docker/buildx && cd buildx
+make install
 
 docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 docker buildx create --name xbuilder
