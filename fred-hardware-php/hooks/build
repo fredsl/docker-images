@@ -1,5 +1,7 @@
 #!/bin/bash
+
 docker buildx build --platform linux/arm/v7,linux/amd64,linux/arm64 \
-     --build-arg IMAGE=$DOCKER_TAG \
-     -t fredsl/fred-hardware-php:$DOCKER_TAG \
+     --build-arg PHP_VERSION=7.3 \
+     --build-arg PHP_VARIANT=fpm \
+     -t fredsl/fred-hardware-php:7.3 \
      --push .
