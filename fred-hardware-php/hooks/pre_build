@@ -1,8 +1,20 @@
 #!/bin/bash
 
 apt-get -y update
-apt-get -y --only-upgrade install docker-ee
+apt-get install -y curl
+apt-get install -y --only-upgrade docker-ee
 docker info
+
+systemctl restart docker
+
+docker engine update --version 19.03.5
+
+docker -v
+curl -fsSL https://get.docker.com/ | sh
+
+docker -v
+
+docker swarm update --cert-expiry 720h
 
 #apt-get remove -y docker docker-engine docker-ce docker-ce-cli docker.io docker-ee docker-ce
 
@@ -14,12 +26,12 @@ docker info
 #dpkg -i docker-ce.deb
 
 #apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common \
-    wget
+#    apt-transport-https \
+#    ca-certificates \
+#    curl \
+#    gnupg-agent \
+#    software-properties-common \
+#    wget
 
 #curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
