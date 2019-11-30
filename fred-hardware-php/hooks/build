@@ -1,7 +1,29 @@
 #!/bin/bash
 
-docker buildx build --platform linux/arm/v7,linux/amd64,linux/arm64 \
-     --build-arg PHP_VERSION=7.3 \
-     --build-arg PHP_VARIANT=fpm \
-     -t fredsl/fred-hardware-php:7.3 \
-     --push .
+ARCH=armv7hf
+
+docker build \
+     --build-arg ARCH=$ARCH \
+     --build-arg PHP_VERSION=$PHP_VERSION \
+     --build-arg PHP_VARIANT=$PHP_VARIANT \
+     -t $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-$ARCH \
+     -f $DOCKERFILE_PATH .
+
+ARCH=aarch64
+
+docker build \
+     --build-arg ARCH=$ARCH \
+     --build-arg PHP_VERSION=$PHP_VERSION \
+     --build-arg PHP_VARIANT=$PHP_VARIANT \
+     -t $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-$ARCH \
+     -f $DOCKERFILE_PATH .
+
+ARCH=amd64
+
+docker build \
+     --build-arg ARCH=$ARCH \
+     --build-arg PHP_VERSION=$PHP_VERSION \
+     --build-arg PHP_VARIANT=$PHP_VARIANT \
+     -t $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-$ARCH \
+     -t $DOCKER_REPO:$DOCKER_TAG \
+     -f $DOCKERFILE_PATH .

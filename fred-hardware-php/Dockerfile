@@ -1,5 +1,12 @@
-ARG IMAGE
-FROM php:$IMAGE
+ARG PHP_VERSION
+ARG PHP_VARIANT
+ARG ARCH
+
+FROM arm64v8/php:$PHP_VERSION-$PHP_VARIANT as aarch64
+FROM arm32v7/php:$PHP_VERSION-$PHP_VARIANT as armv7hf
+FROM php:$PHP_VERSION-$PHP_VARIANT as amd64
+
+FROM $ARCH
 
 RUN apt-get update && apt-get install -y \
     mplayer \

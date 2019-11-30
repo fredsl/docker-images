@@ -1,30 +1,17 @@
 #!/bin/bash
-
-docker -v
-
 apt-get -y update
-apt-get install -y curl qemu-user-static
-apt-get install -y --only-upgrade docker-ee
-
-export DOCKER_CLI_EXPERIMENTAL=enabled
-export DOCKER_BUILDKIT=1
-
-docker version
-
-docker buildx info
-
-docker run --rm --privileged docker/binfmt:820fdd95a9972a5308930a2bdfb8573dd4447ad3
-
-docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-
+apt-get -y --only-upgrade install docker-ee
+docker info
 docker run \
   --rm \
   --privileged \
   multiarch/qemu-user-static:register --reset
-
-docker buildx info
-
-docker buildx create --name xbuilder
-docker buildx use xbuilder
-docker buildx inspect --bootstrap
+echo "##################  start buildx tasks  ##################"
 docker buildx ls
+echo "##################  Create new buildx builder  ##################"
+docker buildx create --name mybuilder
+echo "##################  Use new buildx builder  ##################"
+docker buildx use mybuilder
+echo "##################  Inspect buildx builder  ##################"
+docker buildx inspect --bootstrap
+echo "################## done with pre_build  ##################"
