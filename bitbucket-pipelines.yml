@@ -1,0 +1,32 @@
+# This is a sample build configuration for Docker.
+# Check our guides at https://confluence.atlassian.com/x/O1toN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: atlassian/default-image:2
+
+pipelines:
+  default:
+    - step:
+        services:
+          - docker
+        script: 
+          - export PHP_VERSION=7.3.1-fpm
+          # Set $DOCKER_HUB_USERNAME and $DOCKER_HUB_PASSWORD as environment variables in repository settings
+          - export IMAGE_NAME=fredsl/fred-hardware-php:$PHP_VERSION
+          # authenticate with the Docker Hub registry
+          - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+          - export DOCKER_CLI_EXPERIMENTAL=enabled
+          - export DOCKER_BUILDKIT=1
+          # enable arm support
+          - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          # enable buildx 
+          - docker buildx create --name xbuilder
+          - docker buildx use xbuilder
+          - docker buildx inspect --bootstrap
+          # build multi-arch 
+          - docker buildx build \
+               --platform linux/arm/v7,linux/amd64,linux/arm64 \
+               --build-arg IMAGE=$DOCKER_TAG \
+               -t $IMAGE_NAME \
+               --push .
