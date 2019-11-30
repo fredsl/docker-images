@@ -1,58 +1,18 @@
 #!/bin/bash
 
 apt-get -y update
-apt-get install -y curl
-apt-get install -y --only-upgrade docker-ee
-docker info
+apt-get install -y curl git
 
-systemctl restart docker
-
+docker -v
 docker engine update --version 19.03.5
-
-docker -v
-curl -fsSL https://get.docker.com/ | sh
-
 docker -v
 
-docker swarm update --cert-expiry 720h
+export DOCKER_CLI_EXPERIMENTAL=enable
+export DOCKER_BUILDKIT=1
+docker build --platform=local -o . git://github.com/docker/buildx
+mv buildx ~/.docker/cli-plugins/docker-buildx
 
-#apt-get remove -y docker docker-engine docker-ce docker-ce-cli docker.io docker-ee docker-ce
-
-#apt-get update
-#apt-get -y install wget
-
-#wget -O docker-ce.deb https://download.docker.com/linux/ubuntu/dists/xenial/pool/stable/amd64/docker-ce_19.03.5~3-0~ubuntu-xenial_amd64.deb
-
-#dpkg -i docker-ce.deb
-
-#apt-get install -y \
-#    apt-transport-https \
-#    ca-certificates \
-#    curl \
-#    gnupg-agent \
-#    software-properties-common \
-#    wget
-
-#curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-
-#add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
-#apt-get update
-
-#apt-cache madison docker-ce
-
-#apt-get install -y docker-ce docker-ce-cli containerd.io
-
-#docker -v
-#export DOCKER_BUILDKIT=1
-#wget -O docker-buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-arm64
-#cp docker-buildx ~/.docker/cli-plugins
-#chmod a+x ~/.docker/cli-plugins/docker-buildx
-
-#docker buildx info
+docker buildx info
 
 docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 docker buildx create --name xbuilder
