@@ -3,7 +3,7 @@
 docker -v
 
 apt-get -y update
-apt-get install -y curl
+apt-get install -y curl qemu-user-static
 apt-get install -y --only-upgrade docker-ee
 
 export DOCKER_CLI_EXPERIMENTAL=enabled
