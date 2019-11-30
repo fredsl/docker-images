@@ -1,7 +1,9 @@
 #!/bin/bash
 
-echo "{\"experimental\": true }" >> /etc/docker/daemon.json
-systemctl restart docker
+docker -v
+export DOCKER_BUILDKIT=1
+docker build --platform=local -o . git://github.com/docker/buildx
+mv buildx ~/.docker/cli-plugins/docker-buildx
 
 docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 docker buildx create --name xbuilder
