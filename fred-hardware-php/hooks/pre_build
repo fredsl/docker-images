@@ -14,7 +14,7 @@ apt-get install -y \
     curl \
     gnupg-agent \
     software-properties-common \
-    git
+    wget
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
@@ -31,8 +31,11 @@ apt-get install -y docker-ce docker-ce-cli containerd.io
 
 docker -v
 export DOCKER_BUILDKIT=1
-git clone git://github.com/docker/buildx && cd buildx
-make install
+wget -O docker-buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-arm64
+cp docker-buildx ~/.docker/cli-plugins
+chmod a+x ~/.docker/cli-plugins/docker-buildx
+
+docker buildx info
 
 docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 docker buildx create --name xbuilder
