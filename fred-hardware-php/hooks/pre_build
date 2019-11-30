@@ -1,5 +1,5 @@
 #!/bin/bash
-apt-get remove docker docker-engine docker-ce docker-ce-cli docker.io docker-ee docker-ce
+apt-get remove -y docker docker-engine docker-ce docker-ce-cli docker.io docker-ee docker-ce
 
 apt-get update
 apt-get -y install wget
