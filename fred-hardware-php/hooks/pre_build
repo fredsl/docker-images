@@ -8,22 +8,26 @@ apt-get install -y --only-upgrade docker-ee
 
 #systemctl restart docker
 
-docker -v
 docker version
 
-echo $DOCKER_EE_VERSION
+#echo $DOCKER_EE_VERSION
+#apt-cache madison docker-ee
 
-apt-cache madison docker-ee
-
-docker -v
-
-DOCKER_CLI_EXPERIMENTAL=enable
+export DOCKER_CLI_EXPERIMENTAL=enable
 export DOCKER_BUILDKIT=1
+export DOCKER_API_VERSION='1.40'
+
+docker version
 
 docker buildx -v
 
-git clone git://github.com/docker/buildx && cd buildx
-make install
+docker build --platform=local -o . git://github.com/docker/buildx
+mv buildx ~/.docker/cli-plugins/docker-buildx
+
+docker buildx -v
+
+#git clone git://github.com/docker/buildx && cd buildx
+#make install
 
 docker buildx help
 
