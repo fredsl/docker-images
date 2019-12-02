@@ -6,19 +6,21 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
     - name: Install docker buildx
+    - uses: actions/checkout@v1
       run: bash fred-hardware-php/install-buildx.sh
+
+    - name: Docker Login
+    - uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
+        loginServer: index.docker.io
 
   build-armv7:
     needs: setup
     steps:
     - name: build and push armv7 image
-    - uses: azure/container-actions/docker-login@master
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_TOKEN }}
-        loginServer: index.docker.io
       run: |
           ls
           docker buildx build --platform linux/arm/v7 \
@@ -26,15 +28,11 @@ jobs:
           --build-arg PHP_VARIANT=fpm \
           -t fredsl/fred-hardware-php:7.3.1-fpm-armv7hf \
           --push fred-hardware-php
+
   build-arm64:
     needs: setup
     steps:
     - name: build and push arm64 image
-    - uses: azure/container-actions/docker-login@master
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_TOKEN }}
-        loginServer: index.docker.io
       run: |
         ls
         docker buildx build --platform linux/arm64 \
@@ -46,11 +44,6 @@ jobs:
     needs: setup
     steps:
     - name: build and push amd64 image
-    - uses: azure/container-actions/docker-login@master
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_TOKEN }}
-        loginServer: index.docker.io
       run: |
         ls
         docker buildx build --platform linux/amd64 \
