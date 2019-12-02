@@ -19,7 +19,7 @@ jobs:
        -
         name: Build x86_64
         env:
-          IMAGE_NAME=fredsl/fred-hardware-php:7.3.1-fpm-amd64
+          IMAGE_NAME: fredsl/fred-hardware-php:7.3.1-fpm-amd64
         run: |
           docker pull $IMAGE_NAME
           docker build \
@@ -45,7 +45,7 @@ jobs:
       -
         name: Build ARM v7
         env:
-          IMAGE_NAME=fredsl/fred-hardware-php:7.3.1-fpm-armv7hf
+          IMAGE_NAME: fredsl/fred-hardware-php:7.3.1-fpm-armv7hf
         run: |
           bash fred-hardware-php/install-buildx.sh
           docker pull $IMAGE_NAME
@@ -75,7 +75,7 @@ jobs:
       -
         name: Build ARM 64
         env:
-          IMAGE_NAME=fredsl/fred-hardware-php:7.3.1-fpm-aarch64
+          IMAGE_NAME: fredsl/fred-hardware-php:7.3.1-fpm-aarch64
         run: |
           bash fred-hardware-php/install-buildx.sh
           docker pull $IMAGE_NAME
