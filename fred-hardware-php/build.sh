@@ -3,8 +3,8 @@
 sudo sed -i -e 's/}$/,\"experimental\": \"enabled\" }/' /etc/docker/daemon.json
 cat  /etc/docker/daemon.json
 
-systemctl status docker.service
-journalctl -xe
+sudo systemctl status docker.service
+sudo journalctl -xe
 
 export DOCKER_CLI_EXPERIMENTAL=enabled
 export DOCKER_BUILDKIT=1
