@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
+mkdir -p ~/.docker
 touch ~/.docker/config.json
 echo "{ \"experimental\": \"enabled\" }" >> ~/.docker/config.json
 
-sudo systemctl restart docker
-
 export DOCKER_CLI_EXPERIMENTAL=enabled
 export DOCKER_BUILDKIT=1
+
+sudo systemctl restart docker
 
 docker --version
 docker info
