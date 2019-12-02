@@ -11,34 +11,47 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install docker buildx
       run: bash fred-hardware-php/install-buildx.sh
+
     - name: Login to Docker Hub
-      env:
-        DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-      run: echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+    - uses: azure/container-actions/docker-login@master
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
+        loginServer: index.docker.io
+
     - name: build and push armv7 image
       env:
         PHP_VERSION: 7.3.1
         PHP_VARIANT: fpm
-      run: docker buildx build --platform linux/arm/v7 \
+      run: |
+          ls
+          cd fred-hardware-php
+          docker buildx build --platform linux/arm/v7 \
           --build-arg PHP_VERSION=$PHP_VERSION \
           --build-arg PHP_VARIANT=$PHP_VARIANT \
           -t fredsl/fred-hardware-php:$PHP_VERSION-$PHP_VARIANT-armv7hf \
-          --push fred-hardware-php
+          --push .
+
     - name: build and push arm64 image
       env:
         PHP_VERSION: 7.3.1
         PHP_VARIANT: fpm
-      run: docker buildx build --platform linux/arm64 \
+      run: |
+        ls
+         cd fred-hardware-php
+         docker buildx build --platform linux/arm64 \
         --build-arg PHP_VERSION=$PHP_VERSION \
         --build-arg PHP_VARIANT=$PHP_VARIANT \
         -t fredsl/fred-hardware-php:$PHP_VERSION-$PHP_VARIANT-aarch64 \
-        --push fred-hardware-php
+        --push .
+
     - name: build and push amd64 image
       env:
         PHP_VERSION: 7.3.1
         PHP_VARIANT: fpm
-      run: docker buildx build --platform linux/amd64 \
+      run: |
+        cd fred-hardware-php
+        docker buildx build --platform linux/amd64 \
         --build-arg PHP_VERSION=$PHP_VERSION \
         --build-arg PHP_VARIANT=$PHP_VARIANT \
         -t fredsl/fred-hardware-php:$PHP_VERSION-$PHP_VARIANT-amd64 \
