@@ -30,8 +30,8 @@ jobs:
 
     - name: build and push arm64 image
       run: |
-         ls
-         docker buildx build --platform linux/arm64 \
+        ls
+        docker buildx build --platform linux/arm64 \
         --build-arg PHP_VERSION=7.3.1 \
         --build-arg PHP_VARIANT=fpm \
         -t fredsl/fred-hardware-php:7.3.1-fpm-aarch64 \
