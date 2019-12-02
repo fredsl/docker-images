@@ -33,9 +33,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v1
       -
-        name: Install docker buildx
-        run: bash fred-hardware-php/install-buildx.sh
-      -
         name: Docker Login
         uses: azure/docker-login@v1
         with:
@@ -45,7 +42,9 @@ jobs:
       -
         name: Build ARM v7
         run: |
-            docker buildx build \
+          bash fred-hardware-php/install-buildx.sh
+          docker buildx inspect --bootstrap
+          docker buildx build \
               --build-arg PHP_VERSION=7.3.1 \
               --build-arg PHP_VARIANT=fpm \
               --platform linux/armv7hf \
@@ -62,9 +61,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v1
       -
-        name: Install docker buildx
-        run: bash fred-hardware-php/install-buildx.sh
-      -
         name: Docker Login
         uses: azure/docker-login@v1
         with:
@@ -74,7 +70,9 @@ jobs:
       -
         name: Build ARM 64
         run: |
-            docker buildx build \
+          bash fred-hardware-php/install-buildx.sh
+          docker buildx inspect --bootstrap
+          docker buildx build \
               --build-arg PHP_VERSION=7.3.1 \
               --build-arg PHP_VARIANT=fpm \
               --platform linux/arm64 \
