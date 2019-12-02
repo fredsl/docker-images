@@ -11,10 +11,10 @@
 export DOCKER_CLI_EXPERIMENTAL=enabled
 export DOCKER_BUILDKIT=1
 
-mkdir -p /usr/local/lib/docker/cli-plugins
+sudo mkdir -p /usr/local/lib/docker/cli-plugins
 wget -o buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64
 ls
-mv buildx  /usr/local/lib/docker/cli-plugins/docker-buildx
+sudo mv buildx  /usr/local/lib/docker/cli-plugins/docker-buildx
 sudo chmod a+x  /usr/local/lib/docker/cli-plugins/docker-buildx
 #sudo systemctl restart docker
 
