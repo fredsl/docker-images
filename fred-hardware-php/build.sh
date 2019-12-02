@@ -15,6 +15,9 @@ sudo systemctl restart docker
 
 sudo systemctl status docker.service
 
+docker build --platform=local -o . git://github.com/docker/buildx
+mv buildx ~/.docker/cli-plugins/docker-buildx
+
 docker --version
 docker info
 
