@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+cat /etc/docker/daemon.json
 mkdir -p ~/.docker
 touch ~/.docker/config.json
 echo "{ \"experimental\": \"enabled\" }" >> ~/.docker/config.json
