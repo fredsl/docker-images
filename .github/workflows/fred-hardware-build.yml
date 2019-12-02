@@ -24,7 +24,7 @@ jobs:
           --build-arg PHP_VERSION=$PHP_VERSION \
           --build-arg PHP_VARIANT=$PHP_VARIANT \
           -t fredsl/fred-hardware-php:$PHP_VERSION-$PHP_VARIANT-armv7hf \
-          --push .
+          --push fred-hardware-php
     - name: build and push arm64 image
       env:
         PHP_VERSION: 7.3.1
@@ -33,7 +33,7 @@ jobs:
         --build-arg PHP_VERSION=$PHP_VERSION \
         --build-arg PHP_VARIANT=$PHP_VARIANT \
         -t fredsl/fred-hardware-php:$PHP_VERSION-$PHP_VARIANT-aarch64 \
-        --push .
+        --push fred-hardware-php
     - name: build and push amd64 image
       env:
         PHP_VERSION: 7.3.1
@@ -42,4 +42,4 @@ jobs:
         --build-arg PHP_VERSION=$PHP_VERSION \
         --build-arg PHP_VARIANT=$PHP_VARIANT \
         -t fredsl/fred-hardware-php:$PHP_VERSION-$PHP_VARIANT-amd64 \
-        --push .
+        --push fred-hardware-php
