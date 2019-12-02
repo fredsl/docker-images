@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
-cat /etc/docker/daemon.json
-mkdir -p ~/.docker
-touch ~/.docker/config.json
-echo "{ \"experimental\": \"enabled\" }" >> ~/.docker/config.json
-
+sudo sed -i -e 's/}$/,\n\"experimental\": \"enabled\" }/' /etc/docker/daemon.json
 export DOCKER_CLI_EXPERIMENTAL=enabled
 export DOCKER_BUILDKIT=1
 
