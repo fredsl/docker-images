@@ -24,6 +24,7 @@ jobs:
               --build-arg PHP_VARIANT=fpm \
               -t fredsl/fred-hardware-php:7.3.1-fpm-amd64 \
                fred-hardware-php
+              docker push fredsl/fred-hardware-php:7.3.1-fpm-amd64
 
   build-armv7:
     runs-on: ubuntu-latest
@@ -49,8 +50,10 @@ jobs:
             --build-arg PHP_VARIANT=fpm \
             --platform linux/armv7hf \
             -t fredsl/fred-hardware-php:7.3.1-fpm-armv7hf \
-            --push \
+            --load \
             --file ./fred-hardware-php/Dockerfile ./fred-hardware-php
+            docker push fredsl/fred-hardware-php:7.3.1-fpm-armv7hf
+
 
   build-arm64:
     runs-on: ubuntu-latest
@@ -76,5 +79,6 @@ jobs:
             --build-arg PHP_VARIANT=fpm \
             --platform linux/arm64 \
             -t fredsl/fred-hardware-php:7.3.1-fpm-aarch64 \
-            --push \
+            --load \
             --file ./fred-hardware-php/Dockerfile ./fred-hardware-php
+            docker push fredsl/fred-hardware-php:7.3.1-fpm-aarch64
