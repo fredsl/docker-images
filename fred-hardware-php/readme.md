@@ -1,29 +1,38 @@
-# Docker Image Multi-arch
+# Fred Hardware PHP
 
-This is a work in progress in an attempt of getting a single multi-arch php image across multiple arch devices.
+A PHP image that includes several libraries compiled to `x86_64 (amd64)`, `armv7 (armv7hf)` and `arm64 (aarch64)`
 
-It still not possible due to the Balena's limitation 
+* curl
+* gd
+* json 
+* mbstring 
+* pdo 
+* pdo_sqlite 
+* xml 
+* xmlrpc 
+* simplexml 
+* sockets 
 
-https://forums.balena.io/t/use-pre-build-multiarch-image-from-docker-hub/26110/21
+The docker images are build using Github workflow and published to `fredsl/fred-hardware-php`.
 
-## Preparing the buildx
+Current tags are:
 
-```bash
-docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+* 7.3.1-fpm-amd64
+* 7.3.1-fpm-armv7hf
+* 7.3.1-fpm-aarch64
 
-docker buildx create --name xbuilder
-docker buildx use xbuilder
-docker buildx inspect --bootstrap
+In future, when Balena.io fixes the [issue](https://forums.balena.io/t/use-pre-build-multiarch-image-from-docker-hub/26110/21) 
+of not supporting multi-arch image, this project will generate an image with single tag using the following command.
+
+
 ```
+docker buildx build \
+  --build-arg PHP_VERSION=7.3.1 \
+  --build-arg PHP_VARIANT=fpm \
+  --platform linux/arm/v7,linux/amd64,linux/arm64 \
+  -t fredsl/fred-hardware-php:7.3.1-fpm-armv7hf \
+  --load \
+  --file ./fred-hardware-php/Dockerfile ./fred-hardware-php
 
-
-## Building images
-
-```bash
-docker buildx build --platform linux/arm/v7,linux/amd64,linux/arm64 \
-     --build-arg PHP_VERSION=7.3 \
-     --build-arg PHP_VARIANT=fpm \
-     -t fredsl/fred-hardware-php:7.3 \
-     --push .
+docker push fredsl/fred-hardware-php:7.3.1-fpm
 ```
-

@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build Docker Images
 
 on: [push]
 
@@ -18,13 +18,16 @@ jobs:
           loginServer: index.docker.io
        -
         name: Build x86_64
+        env:
+          IMAGE_NAME=fredsl/fred-hardware-php:7.3.1-fpm-amd64
         run: |
-            docker build \
-              --build-arg PHP_VERSION=7.3.1 \
-              --build-arg PHP_VARIANT=fpm \
-              -t fredsl/fred-hardware-php:7.3.1-fpm-amd64 \
-              fred-hardware-php
-            docker push fredsl/fred-hardware-php:7.3.1-fpm-amd64
+          docker pull $IMAGE_NAME
+          docker build \
+               --build-arg PHP_VERSION=7.3.1 \
+               --build-arg PHP_VARIANT=fpm \
+               -t $IMAGE_NAME \
+                fred-hardware-php
+          docker push $IMAGE_NAME
 
   build-armv7:
     runs-on: ubuntu-latest
@@ -41,17 +44,19 @@ jobs:
           loginServer: index.docker.io
       -
         name: Build ARM v7
+        env:
+          IMAGE_NAME=fredsl/fred-hardware-php:7.3.1-fpm-armv7hf
         run: |
           bash fred-hardware-php/install-buildx.sh
-          docker buildx inspect --bootstrap
+          docker pull $IMAGE_NAME
           docker buildx build \
               --build-arg PHP_VERSION=7.3.1 \
               --build-arg PHP_VARIANT=fpm \
-              --platform linux/armv7hf \
-              -t fredsl/fred-hardware-php:7.3.1-fpm-armv7hf \
+              --platform linux/arm/v7 \
+              -t $IMAGE_NAME \
               --load \
               --file ./fred-hardware-php/Dockerfile ./fred-hardware-php
-            docker push fredsl/fred-hardware-php:7.3.1-fpm-armv7hf
+          docker push $IMAGE_NAME
 
 
   build-arm64:
@@ -69,15 +74,17 @@ jobs:
           loginServer: index.docker.io
       -
         name: Build ARM 64
+        env:
+          IMAGE_NAME=fredsl/fred-hardware-php:7.3.1-fpm-aarch64
         run: |
           bash fred-hardware-php/install-buildx.sh
-          docker buildx inspect --bootstrap
+          docker pull $IMAGE_NAME
           docker buildx build \
               --build-arg PHP_VERSION=7.3.1 \
               --build-arg PHP_VARIANT=fpm \
               --platform linux/arm64 \
-              -t fredsl/fred-hardware-php:7.3.1-fpm-aarch64 \
+              -t $IMAGE_NAME \
               --load \
               --file ./fred-hardware-php/Dockerfile ./fred-hardware-php
-            docker push fredsl/fred-hardware-php:7.3.1-fpm-aarch64
+          docker push $IMAGE_NAME
 
