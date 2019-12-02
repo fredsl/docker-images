@@ -1,5 +1,0 @@
-#!/bin/bash
-
-docker push $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-armv7hf
-docker push $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-aarch64
-docker push $DOCKER_REPO:$PHP_VERSION-$PHP_VARIANT-amd64
