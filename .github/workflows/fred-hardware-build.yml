@@ -21,7 +21,9 @@ jobs:
         env:
           IMAGE_NAME: fredsl/fred-hardware-php:7.3.1-fpm-amd64
         run: |
+          docker pull $IMAGE_NAME || true
           docker build \
+               --cache-from $IMAGE_NAME \
                --build-arg PHP_VERSION=7.3.1 \
                --build-arg PHP_VARIANT=fpm \
                -t $IMAGE_NAME \
@@ -46,8 +48,10 @@ jobs:
         env:
           IMAGE_NAME: fredsl/fred-hardware-php:7.3.1-fpm-armv7hf
         run: |
+          docker pull $IMAGE_NAME || true
           bash fred-hardware-php/install-buildx.sh
           docker buildx build \
+              --cache-from $IMAGE_NAME \
               --build-arg PHP_VERSION=7.3.1 \
               --build-arg PHP_VARIANT=fpm \
               --platform linux/arm/v7 \
@@ -75,8 +79,10 @@ jobs:
         env:
           IMAGE_NAME: fredsl/fred-hardware-php:7.3.1-fpm-aarch64
         run: |
+          docker pull $IMAGE_NAME || true
           bash fred-hardware-php/install-buildx.sh
           docker buildx build \
+              --cache-from $IMAGE_NAME \
               --build-arg PHP_VERSION=7.3.1 \
               --build-arg PHP_VARIANT=fpm \
               --platform linux/arm64 \
