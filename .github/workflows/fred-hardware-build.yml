@@ -16,14 +16,14 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           loginServer: index.docker.io
-        -
-          name: Build x86_64
-          run: |
-              docker build \
-              --build-arg PHP_VERSION=7.3.1 \
-              --build-arg PHP_VARIANT=fpm \
-              -t fredsl/fred-hardware-php:7.3.1-fpm-amd64 \
-               fred-hardware-php
+       -
+        name: Build x86_64
+        run: |
+             docker build \
+             --build-arg PHP_VERSION=7.3.1 \
+             --build-arg PHP_VARIANT=fpm \
+             -t fredsl/fred-hardware-php:7.3.1-fpm-amd64 \
+              fred-hardware-php
 
   build-armv7:
     runs-on: ubuntu-latest
