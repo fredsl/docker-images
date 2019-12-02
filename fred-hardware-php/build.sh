@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
-sudo sed -i -e 's/}$/,\"experimental\": \"enabled\" }/' /etc/docker/daemon.json
+sudo systemctl stop docker
+
+sudo rm /etc/docker/daemon.json
+sudo touch /etc/docker/daemon.json
+sudo echo "{ \"cgroup-parent\": \"/actions_job\", \"experimental\": \"enabled\" }" >> /etc/docker/daemon.json
+#sudo sed -i -e 's/}$/,\"experimental\": \"enabled\" }/' /etc/docker/daemon.json
 cat  /etc/docker/daemon.json
 
 export DOCKER_CLI_EXPERIMENTAL=enabled
 export DOCKER_BUILDKIT=1
 
-sudo systemctl restart docker
+sudo systemctl start docker
 
 sudo systemctl status docker.service
 
