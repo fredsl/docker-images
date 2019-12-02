@@ -12,21 +12,20 @@ export DOCKER_CLI_EXPERIMENTAL=enabled
 export DOCKER_BUILDKIT=1
 
 sudo mkdir -p /usr/local/lib/docker/cli-plugins
-wget -o buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64
-ls
+#wget -o buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64
+docker build --platform=local -o . git://github.com/docker/buildx
 sudo mv buildx  /usr/local/lib/docker/cli-plugins/docker-buildx
 sudo chmod a+x  /usr/local/lib/docker/cli-plugins/docker-buildx
 #sudo systemctl restart docker
 
 #sudo systemctl status docker.service
 
-#docker build --platform=local -o . git://github.com/docker/buildx
-#mv buildx /usr/lib/docker/cli-plugins/docker-buildx
+
 
 #docker --version
 #docker info
 
-#docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
 docker buildx create --name xbuilder
 docker buildx use xbuilder
