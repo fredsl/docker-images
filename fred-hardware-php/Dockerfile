@@ -3,15 +3,18 @@ ARG PHP_VARIANT
 
 FROM php:$PHP_VERSION-$PHP_VARIANT
 
-RUN apt-get update && apt-get install -y \
-    mplayer \
-    libpng-dev \
-    libzip-dev \
-    zlib1g-dev \
-    libcurl4-openssl-dev \
-    libxml2-dev \
-    sqlite3 \
-    libsqlite3-dev
+ENV PHP_DEV_LIBS="libpng-dev \
+                  libzip-dev \
+                  curl-dev \
+                  libxml2-dev \
+                  sqlite-dev"
+
+
+RUN apk add --no-cache \
+    alsa-utils \
+    libpng \
+    libzip \
+    $PHP_DEV_LIBS
 
 RUN docker-php-source extract \
  && docker-php-ext-install -j$(nproc) \
@@ -25,5 +28,6 @@ RUN docker-php-source extract \
     xmlrpc \
     simplexml \
     sockets \
- && docker-php-source delete \
- && rm -rf /var/lib/apt/lists/*;
+ && docker-php-source delete
+
+RUN apk del $PHP_DEV_LIBS
