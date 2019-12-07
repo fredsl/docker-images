@@ -21,6 +21,8 @@ jobs:
         env:
           IMAGE_NAME: fredsl/fred-hardware-php:7.3.12-fpm-amd64
         run: |
+          cd /usr/bin
+          ls
           cp /usr/bin/qemu-arm-static .
           bash fred-hardware-php/install-buildx.sh
           docker build \
