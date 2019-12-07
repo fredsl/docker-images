@@ -1,4 +1,5 @@
 name: Build Docker Images
+runs-on: ubuntu-latest
 
 on: [push]
 
@@ -21,7 +22,7 @@ jobs:
         env:
           IMAGE_NAME: fredsl/fred-hardware-php:7.3.12-fpm-amd64
         run: |
-          apt-get update && apt-get install -y qemu-user-static
+          sudo apt-get update && apt-get install -y qemu-user-static
           cp /usr/bin/qemu-arm-static .
           bash fred-hardware-php/install-buildx.sh
           docker build \
@@ -49,7 +50,7 @@ jobs:
         env:
           IMAGE_NAME: fredsl/fred-hardware-php:7.3.12-fpm-armv7hf
         run: |
-          apt-get update && apt-get install -y qemu-user-static
+          sudo apt-get update && apt-get install -y qemu-user-static
           cp /usr/bin/qemu-arm-static .
           bash fred-hardware-php/install-buildx.sh
           docker buildx build \
