@@ -1,7 +1,13 @@
+FROM debian:buster
+RUN apt-get update && apt-get install -qqy qemu-user-static
+
 ARG PHP_VERSION
 ARG PHP_VARIANT
 
 FROM php:$PHP_VERSION-$PHP_VARIANT
+
+COPY --from=0 /usr/bin/qemu-aarch64-static /usr/bin/qemu-aarch64-static
+COPY --from=0 /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
 
 ENV PHP_DEV_LIBS="libpng-dev \
                   libzip-dev \
