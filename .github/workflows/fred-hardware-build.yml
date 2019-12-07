@@ -21,6 +21,7 @@ jobs:
         env:
           IMAGE_NAME: fredsl/fred-hardware-php:7.3.12-fpm-amd64
         run: |
+          cp /usr/bin/qemu-arm-static .
           bash fred-hardware-php/install-buildx.sh
           docker build \
                --build-arg PHP_VERSION=7.3.12 \
@@ -47,6 +48,7 @@ jobs:
         env:
           IMAGE_NAME: fredsl/fred-hardware-php:7.3.12-fpm-armv7hf
         run: |
+          cp /usr/bin/qemu-arm-static .
           bash fred-hardware-php/install-buildx.sh
           docker buildx build \
               --build-arg PHP_VERSION=7.3.12 \
@@ -76,6 +78,7 @@ jobs:
         env:
           IMAGE_NAME: fredsl/fred-hardware-php:7.3.12-fpm-aarch64
         run: |
+          cp /usr/bin/qemu-arm-static .
           bash fred-hardware-php/install-buildx.sh
           docker buildx build \
               --build-arg PHP_VERSION=7.3.12 \
