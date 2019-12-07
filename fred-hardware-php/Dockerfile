@@ -3,7 +3,7 @@ ARG PHP_VARIANT
 
 FROM php:$PHP_VERSION-$PHP_VARIANT
 
-ADD /usr/bin/qemu-aarch64-static /usr/bin/qemu-aarch64-static
+#ADD /usr/bin/qemu-aarch64-static /usr/bin/qemu-aarch64-static
 ADD /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
 
 ENV PHP_DEV_LIBS="libpng-dev \
